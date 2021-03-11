@@ -53,7 +53,7 @@
                               <Label text="Hours Worked" GridPane.rowIndex="6" />
                               <Label text="Salary" GridPane.rowIndex="4" />
                               <Label text="Manager Code" GridPane.rowIndex="7" />
-                              <DatePicker fx:id="hireDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="hireDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Button fx:id="addEmp" mnemonicParsing="false" onAction="#addEmployee" text="Add Employee" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                               <Label text="Employment level" GridPane.rowIndex="3" />
                               <HBox fx:id="managerHBox" disable="true" prefHeight="100.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="7">

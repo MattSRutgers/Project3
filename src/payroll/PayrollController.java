@@ -30,7 +30,7 @@ public class PayrollController {
 	private ToggleGroup department, empLevel, managerCode;
 
     @FXML
-    private TextField empName, empDepartmentCode, partTimePay, partTimeHours, salary;
+    private TextField empName, partTimePay, partTimeHours, salary;
     
     @FXML
     private DatePicker hireDate;
@@ -80,7 +80,6 @@ public class PayrollController {
     	}
     	catch(NumberFormatException e) {
     		textArea.appendText("Invaild salary, please enter numbers above 0 only.\n");
-    		//valid = false;
     	}
     	return valid;
     }
@@ -135,6 +134,7 @@ public class PayrollController {
     	String mgmtCode = mgmtSelected.getText();
     	double pay = Double.parseDouble(salary.getText());
     	textArea.appendText("Added " + name + deptCode + hireDate + pay + mgmtCode +"\n");
+    	clearFields();
     	
     }
     
@@ -142,12 +142,23 @@ public class PayrollController {
     void addFullTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(salary.getText());
     	textArea.appendText("Added " + name + deptCode + hireDate + pay +"\n");
+    	clearFields();
     }
     
 
     void addPartTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(partTimePay.getText());
     	textArea.appendText("Added " + name + deptCode + hireDate + pay+"\n");
+    	clearFields();
+    }
+    
+    void clearFields() {
+    	empName.clear();
+    	this.hireDate.getEditor().clear();
+    	this.partTimeHours.clear();
+    	this.partTimePay.clear();
+    	this.salary.clear();
+    	
     }
     
     @FXML
