@@ -43,7 +43,9 @@ public class PayrollController {
     private HBox managerHBox;
     
     Company company = new Company();
-    
+    int mgt = 0;
+    int dptHead = 1;
+    int director = 2;
     @FXML
     private boolean checkName() {
     	boolean valid = true;
@@ -133,9 +135,20 @@ public class PayrollController {
     
 
     void addManager(String name, String deptCode, String hireDate) {
+    	int code =0;
     	RadioButton mgmtSelected = (RadioButton) managerCode.getSelectedToggle();
     	String mgmtCode = mgmtSelected.getText();
+    	if(mgmtCode.equals("Manager"))
+    		code = mgt;
+    	if(mgmtCode.equals("Department Head"))
+    		code = dptHead;
+    	if(mgmtCode.equals("Director"))
+    		code = director;
     	double pay = Double.parseDouble(salary.getText());
+    	Date date = new Date(hireDate);
+    	
+    	Employee newManager = new Management(name, deptCode, date, pay, code);
+    	this.company.add(newManager);
     	textArea.appendText("Added " + " " + name + " " + deptCode + " " + hireDate + " " + pay + mgmtCode +"\n");
     	clearFields();
     }
@@ -153,6 +166,9 @@ public class PayrollController {
 
     void addPartTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(partTimePay.getText());
+    	Date date = new Date(hireDate);
+    	Employee newPartTimer = new Parttime(name, deptCode, date, pay);
+    	this.company.add(newPartTimer);
     	textArea.appendText("Added " + name + deptCode + hireDate + pay+"\n");
     	clearFields();
     }
