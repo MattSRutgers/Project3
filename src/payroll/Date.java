@@ -10,8 +10,8 @@ public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
-    private static final int MAX_MONTH = 12;
-    private static final int MIN_YEAR = 1900;
+    //private static final int MAX_MONTH = 12;
+    //private static final int MIN_YEAR = 1900;
     private static final int DATE_BEFORE = -1;
     private static final int DATE_AFTER = 1;
     private String dateAsString;

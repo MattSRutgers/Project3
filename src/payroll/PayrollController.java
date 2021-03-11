@@ -20,11 +20,12 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+//import project2.Company;
 
 public class PayrollController {
 	
 	@FXML
-    private Button addEmp;
+    private Button addEmp, remove, setHours, tempPrint;
 	
 	@FXML
 	private ToggleGroup department, empLevel, managerCode;
@@ -40,6 +41,8 @@ public class PayrollController {
     
     @FXML
     private HBox managerHBox;
+    
+    Company company = new Company();
     
     @FXML
     private boolean checkName() {
@@ -133,15 +136,17 @@ public class PayrollController {
     	RadioButton mgmtSelected = (RadioButton) managerCode.getSelectedToggle();
     	String mgmtCode = mgmtSelected.getText();
     	double pay = Double.parseDouble(salary.getText());
-    	textArea.appendText("Added " + name + deptCode + hireDate + pay + mgmtCode +"\n");
+    	textArea.appendText("Added " + " " + name + " " + deptCode + " " + hireDate + " " + pay + mgmtCode +"\n");
     	clearFields();
-    	
     }
     
 
     void addFullTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(salary.getText());
     	textArea.appendText("Added " + name + deptCode + hireDate + pay +"\n");
+    	Date date = new Date(hireDate);
+    	Employee newFullTimer = new Fulltime(name, deptCode, date, pay);
+    	this.company.add(newFullTimer);
     	clearFields();
     }
     
@@ -152,6 +157,17 @@ public class PayrollController {
     	clearFields();
     }
     
+    
+    @FXML
+    void printTemp() {
+    	if ( company.checkEmpty() ){
+            textArea.appendText("Employee database is empty\n");
+            return;
+        }
+        company.print();
+    }
+    
+    
     void clearFields() {
     	empName.clear();
     	this.hireDate.getEditor().clear();
@@ -160,6 +176,7 @@ public class PayrollController {
     	this.salary.clear();
     	
     }
+    
     
     @FXML
     void limitToFullTime() {
