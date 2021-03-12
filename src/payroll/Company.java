@@ -1,5 +1,9 @@
 package payroll;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * The Company class uses an array as a container to manage an employee database
  * @author Matthew Schilling and Gordon Miller
@@ -173,4 +177,22 @@ public class Company {
     public boolean checkEmpty(){
         return numEmployee == 0;
     }
+    
+    void exportDatabase() {
+    	try {
+    		File exportData = new File("storedData.txt");
+    		exportData.createNewFile();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	try {
+    		FileWriter writer = new FileWriter("storedData.txt");
+    		for (int i = 0; i < numEmployee; i++) {
+    			writer.write(empList[i].toString() + "\n");
+    		}
+    		writer.close();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+   	}
 }

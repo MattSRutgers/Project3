@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -299,7 +301,6 @@ public class PayrollController {
     
     @FXML
     void importDatabase() {
-    	textArea.appendText("Importing File\n");
     	Stage stage = new Stage();
     	fileChooser.setTitle("Import New Data");
     	File selectedFile = fileChooser.showOpenDialog(stage);
@@ -308,20 +309,19 @@ public class PayrollController {
     	      while (myReader.hasNextLine()) {
     	        String data = myReader.nextLine();
     	        company.add(dataToEmployee(data));
-    	        textArea.appendText(data + "\n");
     	      }
     	      myReader.close();
     	    } catch (FileNotFoundException e) {
     	      textArea.appendText("File Not Found.");
     	      e.printStackTrace();
     	    }
+     	textArea.appendText("File Imported\n");
     }
     
     @FXML
     void exportDatabase() {
-    	
-    	textArea.appendText("Exporting File\n");
-    }
+    	company.exportDatabase();
+   	}
     
     private static Employee dataToEmployee(String data) {
     	String employeeInfo[] = data.split(",");
@@ -338,7 +338,7 @@ public class PayrollController {
     	}
     	else if(employeeInfo[0].equals("M")){
     		int position = Integer.parseInt(employeeInfo[5]);
-    		temp = new Management(name, deptCode, hireDate, rate, position);
+    		temp = new Management(name, deptCode, hireDate, rate, (position-1));
     	}
     	return temp;
     }
