@@ -58,11 +58,11 @@
                               <Label text="Employment level" GridPane.rowIndex="3" />
                               <HBox fx:id="managerHBox" disable="true" prefHeight="100.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" selected="true" text="Manager" />
-                                    <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="126.0" text="Department Head">
+                                    <RadioButton mnemonicParsing="false" selected="true" text="Manager">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="managerCode" />
                                        </toggleGroup></RadioButton>
+                                    <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="126.0" text="Department Head" toggleGroup="$managerCode" />
                                     <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="74.0" text="Director" toggleGroup="$managerCode" />
                                  </children>
                               </HBox>
