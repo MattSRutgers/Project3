@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 //import project2.Company;
 //import project2.Employee;
+//import project2.Parttime;
 
 public class PayrollController {
 	
@@ -108,6 +109,55 @@ public class PayrollController {
     }
     
     @FXML
+    void setHours() {
+    	String dateString = null;
+    	if(checkName()) {
+    		if(checkDate()) {
+    			if(checkHours()) {
+    			dateString = this.getDate();
+		    	RadioButton selectedDept = (RadioButton) department.getSelectedToggle();
+		    	String deptCode = selectedDept.getText();
+		    	String name = empName.getText();
+		    	Date date = new Date(dateString);
+		    	int hoursWorked = Integer.parseInt(partTimeHours.getText());
+		    	if (company.checkEmpty()) {
+		    		textArea.appendText("Employee database is empty.\n");
+		    		return;
+		    	}
+		    	else if(hoursWorked < 0 || hoursWorked >100){
+		    		textArea.appendText("Invalid Hours.\n");
+		    		return;
+		    	}
+		    	else {
+		    		Parttime updateHours = new Parttime(name,
+		    				deptCode, date, hoursWorked);
+		    		updateHours.setHours(hoursWorked);
+		    		company.setHours(updateHours);
+		    		textArea.appendText("Employee hours set.\n");
+		    	}
+		    	return;
+    			}
+    		}
+    	}
+    }
+    
+    private boolean checkHours() {
+    	boolean valid = false;
+    	try {
+    		double temp = Double .parseDouble(partTimeHours.getText());
+    		if(temp != 0)
+    			valid = true;
+    		if(temp == 0)
+    			textArea.appendText("payrate can not be 0\n");
+    	}
+    	catch(NumberFormatException e) {
+    		textArea.appendText("Invaild payrate, please enter numbers above 0 only.\n");
+    	}
+    	return valid;
+    }
+    
+    
+    @FXML
     void remove() {
     	String dateString = null;
     	if(checkName()) {
@@ -120,9 +170,9 @@ public class PayrollController {
 		    	Employee removeEmployee = new Employee(name,
                 deptCode, date);
         if(company.remove(removeEmployee))
-        	textArea.appendText("Employee removed");
+        	textArea.appendText("Employee removed.\n");
         else
-        	textArea.appendText("Employee does not exist.");
+        	textArea.appendText("Employee does not exist.\n");
     		}
     	}
     	return;
@@ -172,14 +222,14 @@ public class PayrollController {
     	
     	Employee newManager = new Management(name, deptCode, date, pay, code);
     	this.company.add(newManager);
-    	textArea.appendText("Added " + " " + name + " " + deptCode + " " + hireDate + " " + pay + mgmtCode +"\n");
+    	//textArea.appendText("Added " + " " + name + " " + deptCode + " " + hireDate + " " + pay + mgmtCode +"\n");
     	clearFields();
     }
     
 
     void addFullTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(salary.getText());
-    	textArea.appendText("Added " + name + deptCode + hireDate + pay +"\n");
+    	//textArea.appendText("Added " + name + deptCode + hireDate + pay +"\n");
     	Date date = new Date(hireDate);
     	Employee newFullTimer = new Fulltime(name, deptCode, date, pay);
     	this.company.add(newFullTimer);
@@ -192,7 +242,7 @@ public class PayrollController {
     	Date date = new Date(hireDate);
     	Employee newPartTimer = new Parttime(name, deptCode, date, pay);
     	this.company.add(newPartTimer);
-    	textArea.appendText("Added " + name + deptCode + hireDate + pay+"\n");
+    	//textArea.appendText("Added " + name + deptCode + hireDate + pay+"\n");
     	clearFields();
     }
     
