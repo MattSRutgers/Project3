@@ -1,0 +1,19 @@
+Abe A::CS::3/1/2021::Payment $0.00::PART TIME::Hourly Rate $10.00::Hours worked this period: 0
+Bob A::CS::3/1/2021::Payment $3.85::FULL TIME::Annual Salary 100.00
+Chris A::CS::3/3/2021::Payment $230.77::FULL TIME::Annual Salary 1,000.00::Manager compensation $5,000.00
+Abe C::ECE::3/3/2021::Payment $0.00::PART TIME::Hourly Rate $10.00::Hours worked this period: 0
+Bob C::ECE::3/3/2021::Payment $3.85::FULL TIME::Annual Salary 100.00
+Chris C::ECE::3/3/2021::Payment $500.00::FULL TIME::Annual Salary 1,000.00::Director compensation $12,000.00
+Abe B::IT::3/2/2021::Payment $0.00::PART TIME::Hourly Rate $10.00::Hours worked this period: 0
+Bob B::IT::3/2/2021::Payment $3.85::FULL TIME::Annual Salary 100.00
+Chris B::IT::3/2/2021::Payment $403.85::FULL TIME::Annual Salary 1,000.00::Department Head compensation $9,500.00
+Jane Doe::CS::7/1/2020::Payment $0.00::PART TIME::Hourly Rate $45.90::Hours worked this period: 0
+John Doe::CS::6/30/2019::Payment $2,939.62::FULL TIME::Annual Salary 76,430.00
+Charlie Brown::CS::4/30/2019::Payment $2,153.85::FULL TIME::Annual Salary 56,000.00
+Amy Harrison::IT::3/31/2020::Payment $2,653.85::FULL TIME::Annual Salary 69,000.00
+Eric Haskell::IT::9/1/2015::Payment $4,250.00::FULL TIME::Annual Salary 101,000.00::Department Head compensation $9,500.00
+Sunny White::IT::2/28/2016::Payment $3,626.92::FULL TIME::Annual Salary 89,300.00::Manager compensation $5,000.00
+Henry Young::IT::2/1/2005::Payment $5,076.92::FULL TIME::Annual Salary 120,000.00::Director compensation $12,000.00
+Bob Scanlan::ECE::5/12/2019::Payment $0.00::PART TIME::Hourly Rate $24.59::Hours worked this period: 0
+Jeff Clinton::ECE::10/1/2001::Payment $0.00::PART TIME::Hourly Rate $39.99::Hours worked this period: 0
+Carey Wang::ECE::11/30/2017::Payment $0.00::PART TIME::Hourly Rate $26.59::Hours worked this period: 0

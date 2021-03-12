@@ -134,6 +134,7 @@ public class PayrollController {
 		    		updateHours.setHours(hoursWorked);
 		    		company.setHours(updateHours);
 		    		textArea.appendText("Employee hours set.\n");
+		    		clearFields();
 		    	}
 		    	return;
     			}
