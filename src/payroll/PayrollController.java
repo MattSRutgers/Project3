@@ -304,18 +304,20 @@ public class PayrollController {
     	Stage stage = new Stage();
     	fileChooser.setTitle("Import New Data");
     	File selectedFile = fileChooser.showOpenDialog(stage);
-    	 try {
-    	      Scanner myReader = new Scanner(selectedFile);
-    	      while (myReader.hasNextLine()) {
-    	        String data = myReader.nextLine();
-    	        company.add(dataToEmployee(data));
-    	      }
-    	      myReader.close();
-    	    } catch (FileNotFoundException e) {
-    	      textArea.appendText("File Not Found.");
-    	      e.printStackTrace();
-    	    }
-     	textArea.appendText("File Imported\n");
+    	if (selectedFile != null) { 
+	    	try {
+	    	      Scanner myReader = new Scanner(selectedFile);
+	    	      while (myReader.hasNextLine()) {
+	    	        String data = myReader.nextLine();
+	    	        company.add(dataToEmployee(data));
+	    	      }
+	    	      myReader.close();
+	    	    } catch (FileNotFoundException e) {
+	    	      textArea.appendText("File Not Found.");
+	    	      e.printStackTrace();
+	    	    }
+	     	textArea.appendText("File Imported\n");
+    	}
     }
     
     @FXML
