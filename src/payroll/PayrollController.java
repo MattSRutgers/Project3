@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 //import project2.Company;
+//import project2.Employee;
 
 public class PayrollController {
 	
@@ -105,6 +106,28 @@ public class PayrollController {
     	}
     	return valid;
     }
+    
+    @FXML
+    void remove() {
+    	String dateString = null;
+    	if(checkName()) {
+    		if(checkDate()) {
+    			dateString = this.getDate();
+		    	RadioButton selectedDept = (RadioButton) department.getSelectedToggle();
+		    	String deptCode = selectedDept.getText();
+		    	String name = empName.getText();
+		    	Date date = new Date(dateString);
+		    	Employee removeEmployee = new Employee(name,
+                deptCode, date);
+        if(company.remove(removeEmployee))
+        	textArea.appendText("Employee removed");
+        else
+        	textArea.appendText("Employee does not exist.");
+    		}
+    	}
+    	return;
+    }
+    
     
     @FXML
     void addEmployee() {
