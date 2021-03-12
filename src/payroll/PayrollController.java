@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 
-import javafx.event.ActionEvent;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -17,22 +15,18 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
-//import project2.Company;
-//import project2.Employee;
-//import project2.Parttime;
+
 
 public class PayrollController {
 	private FileChooser fileChooser = new FileChooser();
 	
 	@FXML
-    private Button addEmp, remove, setHours, tempPrint, importFile, exportFile;
+    private Button addEmp, remove, setHours, tempPrint, importFile, exportFile, byDate, 
+    byDept;
 	
 	@FXML
 	private ToggleGroup department, empLevel, managerCode;
@@ -53,6 +47,7 @@ public class PayrollController {
     int mgt = 0;
     int dptHead = 1;
     int director = 2;
+    
     @FXML
     private boolean checkName() {
     	boolean valid = true;
@@ -84,14 +79,14 @@ public class PayrollController {
     private boolean checkSalary() {
     	boolean valid = false;
     	try {
-    		double temp = Double .parseDouble(salary.getText());
+    		double temp = Double.parseDouble(salary.getText());
     		if(temp != 0)
     			valid = true;
     		if(temp == 0)
     			textArea.appendText("Salary can not be 0\n");
     	}
     	catch(NumberFormatException e) {
-    		textArea.appendText("Invaild salary, please enter numbers above 0 only.\n");
+    		textArea.appendText("Invalid salary, please enter numbers above 0 only.\n");
     	}
     	return valid;
     }
@@ -108,7 +103,7 @@ public class PayrollController {
     			textArea.appendText("payrate can not be 0\n");
     	}
     	catch(NumberFormatException e) {
-    		textArea.appendText("Invaild payrate, please enter numbers above 0 only.\n");
+    		textArea.appendText("Invalid payrate, please enter numbers above 0 only.\n");
     	}
     	return valid;
     }
@@ -153,10 +148,10 @@ public class PayrollController {
     		if(temp != 0)
     			valid = true;
     		if(temp == 0)
-    			textArea.appendText("payrate can not be 0\n");
+    			textArea.appendText("Hours worked can not be 0\n");
     	}
     	catch(NumberFormatException e) {
-    		textArea.appendText("Invaild payrate, please enter numbers above 0 only.\n");
+    		textArea.appendText("Invalid hours, please enter numbers above 0 only.\n");
     	}
     	return valid;
     }
@@ -213,7 +208,7 @@ public class PayrollController {
     
 
     void addManager(String name, String deptCode, String hireDate) {
-    	int code =0;
+    	int code = 0;
     	RadioButton mgmtSelected = (RadioButton) managerCode.getSelectedToggle();
     	String mgmtCode = mgmtSelected.getText();
     	if(mgmtCode.equals("Manager"))
@@ -227,17 +222,17 @@ public class PayrollController {
     	
     	Employee newManager = new Management(name, deptCode, date, pay, code);
     	this.company.add(newManager);
-    	//textArea.appendText("Added " + " " + name + " " + deptCode + " " + hireDate + " " + pay + mgmtCode +"\n");
+    	textArea.appendText("Employee added\n");
     	clearFields();
     }
     
 
     void addFullTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(salary.getText());
-    	//textArea.appendText("Added " + name + deptCode + hireDate + pay +"\n");
     	Date date = new Date(hireDate);
     	Employee newFullTimer = new Fulltime(name, deptCode, date, pay);
     	this.company.add(newFullTimer);
+    	textArea.appendText("Employee added\n");
     	clearFields();
     }
     
@@ -247,7 +242,7 @@ public class PayrollController {
     	Date date = new Date(hireDate);
     	Employee newPartTimer = new Parttime(name, deptCode, date, pay);
     	this.company.add(newPartTimer);
-    	//textArea.appendText("Added " + name + deptCode + hireDate + pay+"\n");
+    	textArea.appendText("Employee added\n");
     	clearFields();
     }
     
@@ -258,9 +253,26 @@ public class PayrollController {
             textArea.appendText("Employee database is empty\n");
             return;
         }
-        company.print();
+    	textArea.appendText(company.print());
     }
     
+    @FXML
+    void printByDate() {
+    	if ( company.checkEmpty() ){
+            textArea.appendText("Employee database is empty\n");
+            return;
+        }
+    	textArea.appendText(company.printByDate());
+    }
+    
+    @FXML
+    void printByDept() {
+    	if ( company.checkEmpty() ){
+            textArea.appendText("Employee database is empty\n");
+            return;
+        }
+    	textArea.appendText(company.printByDepartment());
+    }
     
     void clearFields() {
     	empName.clear();
@@ -304,23 +316,26 @@ public class PayrollController {
     	Stage stage = new Stage();
     	fileChooser.setTitle("Import New Data");
     	File selectedFile = fileChooser.showOpenDialog(stage);
-    	 try {
-    	      Scanner myReader = new Scanner(selectedFile);
-    	      while (myReader.hasNextLine()) {
-    	        String data = myReader.nextLine();
-    	        company.add(dataToEmployee(data));
-    	      }
-    	      myReader.close();
-    	    } catch (FileNotFoundException e) {
-    	      textArea.appendText("File Not Found.");
-    	      e.printStackTrace();
-    	    }
-     	textArea.appendText("File Imported\n");
+    	if (selectedFile != null) { 
+	    	try {
+	    	      Scanner myReader = new Scanner(selectedFile);
+	    	      while (myReader.hasNextLine()) {
+	    	        String data = myReader.nextLine();
+	    	        company.add(dataToEmployee(data));
+	    	      }
+	    	      myReader.close();
+	    	    } catch (FileNotFoundException e) {
+	    	      textArea.appendText("File Not Found.");
+	    	      e.printStackTrace();
+	    	    }
+	     	textArea.appendText("File Imported\n");
+    	}
     }
     
     @FXML
     void exportDatabase() {
     	company.exportDatabase();
+    	textArea.appendText("File Exported as storedData.txt \n");
    	}
     
     private static Employee dataToEmployee(String data) {

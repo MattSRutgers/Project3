@@ -120,19 +120,21 @@ public class Company {
      * The print method loops through the employee list and prints info for
      * each employee using the toString method.
      */
-    public void print(){
-        System.out.println("--Printing earning statements for all employees--");
+    public String print(){
+        String output = "--Printing earning statements for all employees--\n";
         for (int i = 0; i < numEmployee; i++){
-            System.out.println(empList[i].toString());
+            output += empList[i].toString() + "\n";
         } 
+        return output;
     }
     
     /**
      * The printByDepartment method loops through the employee list and sorts
      * by the department code, and then prints all employees.
      */
-    public void printByDepartment(){
-        Employee tempEmp;
+    public String printByDepartment(){
+    	String output = "";
+    	Employee tempEmp;
         for(int i = 0; i < empList.length; i++){
             for(int j = 1; j < numEmployee; j++){
                 Employee empOne = ((Employee)empList[j-1]);
@@ -146,18 +148,20 @@ public class Company {
                 }
             }
         }
-        System.out.println("--Printing earning statements by department--");
+        output += "--Printing earning statements by department--\n";
         for (int i = 0; i < numEmployee; i++){
-            System.out.println(empList[i].toString());
+            output += empList[i].toString() + "\n";
         }
+        return output;
     }
     
     /**
      * The printByDate method sorts the employee list by their hire date then
      * prints the list of employees using the .toString() method
      */
-    public void printByDate(){           
-        Employee tempEmp;
+    public String printByDate(){           
+    	String output = "";
+    	Employee tempEmp;
         for( int i = 0; i < empList.length; i++ ){
             for( int j = 1; j<numEmployee; j++ ){
                 Date empOneDate = empList[j-1].getDate();
@@ -169,10 +173,11 @@ public class Company {
                 }
             }
         }
-        System.out.println("--Printing earning statements by date hired--");
+        output += "--Printing earning statements by date hired--\n";
         for (int i = 0; i < numEmployee; i++){
-            System.out.println(empList[i].toString());
+            output += empList[i].toString() + "\n";
         }
+        return output;
     }
     public boolean checkEmpty(){
         return numEmployee == 0;
