@@ -20,7 +20,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
+/**
+ * The controller class for our javafx stage
+ * @author Matthew Schilling and Gordon Miller
+ */
 public class PayrollController {
 	private FileChooser fileChooser = new FileChooser();
 	
@@ -48,6 +51,10 @@ public class PayrollController {
     int dptHead = 1;
     int director = 2;
     
+    /**
+     * Checks to make sure that a name has been entered
+     * @return Returns True if a name has been entered, False otherwise
+     */
     @FXML
     private boolean checkName() {
     	boolean valid = true;
@@ -58,7 +65,10 @@ public class PayrollController {
     	return valid;
     }
 
-
+    /**
+     * Checks to make sure that a date has been entered
+     * @return Returns True if a date has been entered, False otherwise
+     */
     private boolean checkDate() {
     	LocalDate tempDate = this.hireDate.getValue();
     	if (tempDate == null) {
@@ -68,6 +78,9 @@ public class PayrollController {
     	return true;
     }
     
+    /**
+     * @return The date entered in the Date Hired field as a String
+     */
     private String getDate() {
     	LocalDate tempDate = this.hireDate.getValue();
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -75,6 +88,10 @@ public class PayrollController {
     	return dateString;
     }
     
+    /**
+     * Checks to make sure that a valid salary has been entered
+     * @return Returns True if a valid salary has been entered, False otherwise
+     */
     @FXML
     private boolean checkSalary() {
     	boolean valid = false;
@@ -91,7 +108,10 @@ public class PayrollController {
     	return valid;
     }
     
-    
+    /**
+     * Checks to make sure that a valid pay rate has been entered
+     * @return Returns True if a valid pay rate has been entered, False otherwise
+     */
     @FXML
     private boolean checkPayrate() {
     	boolean valid = false;
@@ -108,6 +128,9 @@ public class PayrollController {
     	return valid;
     }
     
+    /**
+     * Sets the hours of an employee for the current work period
+     */
     @FXML
     void setHours() {
     	String dateString = null;
@@ -142,6 +165,10 @@ public class PayrollController {
     	}
     }
     
+    /**
+     * Checks to make sure that a valid amount of hours worked has been entered
+     * @return Returns True if a valid amount of hours worked has been entered, False otherwise
+     */
     private boolean checkHours() {
     	boolean valid = false;
     	try {
@@ -157,7 +184,10 @@ public class PayrollController {
     	return valid;
     }
     
-    
+    /**
+     * Removes an employee whose information matches the input 
+     * information from the company database
+     */
     @FXML
     void remove() {
     	String dateString = null;
@@ -179,7 +209,10 @@ public class PayrollController {
     	return;
     }
     
-    
+    /**
+     * Adds an employee whose information matches the input 
+     * information to the company database
+     */
     @FXML
     void addEmployee() {
     	String dateString = null;
@@ -207,7 +240,10 @@ public class PayrollController {
     	}
     }
     
-
+    /**
+     * Adds a manager whose information matches the input 
+     * information to the company database
+     */
     void addManager(String name, String deptCode, String hireDate) {
     	int code = 0;
     	RadioButton mgmtSelected = (RadioButton) managerCode.getSelectedToggle();
@@ -227,7 +263,10 @@ public class PayrollController {
     	clearFields();
     }
     
-
+    /**
+     * Adds a full time employee whose information matches the input 
+     * information to the company database
+     */
     void addFullTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(salary.getText());
     	Date date = new Date(hireDate);
@@ -237,7 +276,10 @@ public class PayrollController {
     	clearFields();
     }
     
-
+    /**
+     * Adds a part time employee whose information matches the input 
+     * information to the company database
+     */
     void addPartTime(String name, String deptCode, String hireDate) {
     	double pay = Double.parseDouble(partTimePay.getText());
     	Date date = new Date(hireDate);
@@ -247,7 +289,10 @@ public class PayrollController {
     	clearFields();
     }
     
-    
+    /**
+     * Prints the contents of the database in the order it was last
+     * printed in
+     */
     @FXML
     void printTemp() {
     	if ( company.checkEmpty() ){
@@ -257,6 +302,9 @@ public class PayrollController {
     	textArea.appendText(company.print());
     }
     
+    /**
+     * Prints the contents of the database in order by date
+     */
     @FXML
     void printByDate() {
     	if ( company.checkEmpty() ){
@@ -266,6 +314,9 @@ public class PayrollController {
     	textArea.appendText(company.printByDate());
     }
     
+    /**
+     * Prints the contents of the database in order by department
+     */
     @FXML
     void printByDept() {
     	if ( company.checkEmpty() ){
@@ -275,6 +326,9 @@ public class PayrollController {
     	textArea.appendText(company.printByDepartment());
     }
     
+    /**
+     * Clears the input fields of the javafx stage
+     */
     void clearFields() {
     	empName.clear();
     	this.hireDate.getEditor().clear();
@@ -284,7 +338,9 @@ public class PayrollController {
     	
     }
     
-    
+    /**
+     * Enables only the input options that are needed for Full Time employees
+     */
     @FXML
     void limitToFullTime() {
     	salary.setDisable(false);
@@ -294,7 +350,9 @@ public class PayrollController {
     	
     }
     
-    
+    /**
+     * Enables only the input options that are needed for Part Time employees
+     */
     @FXML
     void limitToPartTime() {
     	salary.setDisable(true);
@@ -303,7 +361,9 @@ public class PayrollController {
     	managerHBox.setDisable(true);
     }
     
-    
+    /**
+     * Enables only the input options that are needed for Managers
+     */
     @FXML
     void limitToManager() {
     	salary.setDisable(false);
@@ -312,6 +372,9 @@ public class PayrollController {
     	managerHBox.setDisable(false);
    }
     
+    /**
+     * Imports a database from a chosen file to the company database
+     */
     @FXML
     void importDatabase() {
     	Stage stage = new Stage();
@@ -333,12 +396,21 @@ public class PayrollController {
     	}
     }
     
+    /**
+     * Exports the current contents of the company database to the storedData.txt file
+     */
     @FXML
     void exportDatabase() {
     	company.exportDatabase();
     	textArea.appendText("File Exported as storedData.txt \n");
    	}
     
+    /**
+     * Helper method which returns an employee object with the same values 
+     * as a given input from a text file
+     * @param an String that represents an employee being added from a text file
+     * @return an Employee object matching the given data String
+     */
     private static Employee dataToEmployee(String data) {
     	String employeeInfo[] = data.split(",");
     	String name = employeeInfo[1];

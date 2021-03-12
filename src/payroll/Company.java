@@ -179,10 +179,18 @@ public class Company {
         }
         return output;
     }
+    
+    /**
+     * Checks whether a company database is empty
+     * @return True if empty, False otherwise
+     */
     public boolean checkEmpty(){
         return numEmployee == 0;
     }
     
+    /**
+     * Exports the current contents of the company database to the storedData.txt file
+     */
     void exportDatabase() {
     	try {
     		File exportData = new File("storedData.txt");

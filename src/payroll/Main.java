@@ -6,8 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
+/**
+ * The Main class stes up and runs the primary javafx stage
+ * @author Matthew Schilling and Gordon Miller
+ * 
+ */
 
 public class Main extends Application {
+	
+	/**
+	 * Sets up the javafx stage from an fxml file
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -22,6 +31,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Launches the javafx stage and the program
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
