@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="464.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="payroll.PayrollController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="payroll.PayrollController">
    <top>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="448.0" BorderPane.alignment="CENTER">
          <children>
             <TabPane prefHeight="264.0" prefWidth="446.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -112,7 +112,28 @@
                         </GridPane>
                      </content>
                   </Tab>
-                <Tab text="File and menu options" />
+                <Tab text="File and menu options">
+		  <content>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="importFile" mnemonicParsing="false" onAction="#importDatabase" text="Import File" translateX="30.0" />
+                              <Button fx:id="exportFile" mnemonicParsing="false" onAction="#exportDatabase" text="Export File" translateX="30.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </content>
+		</Tab>
               </tabs>
             </TabPane>
          </children>

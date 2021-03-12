@@ -1,9 +1,11 @@
 package payroll;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +25,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 //import project2.Company;
 
 public class PayrollController {
+	private FileChooser fileChooser = new FileChooser();
 	
 	@FXML
-    private Button addEmp, remove, setHours, tempPrint;
+    private Button addEmp, remove, setHours, tempPrint, importFile, exportFile;
 	
 	@FXML
 	private ToggleGroup department, empLevel, managerCode;
@@ -220,4 +223,50 @@ public class PayrollController {
     	partTimeHours.setDisable(true);
     	managerHBox.setDisable(false);
    }
+    
+    @FXML
+    void importDatabase() {
+    	textArea.appendText("Importing File\n");
+    	Stage stage = new Stage();
+    	fileChooser.setTitle("Import New Data");
+    	File selectedFile = fileChooser.showOpenDialog(stage);
+    	 try {
+    	      Scanner myReader = new Scanner(selectedFile);
+    	      while (myReader.hasNextLine()) {
+    	        String data = myReader.nextLine();
+    	        company.add(dataToEmployee(data));
+    	        textArea.appendText(data + "\n");
+    	      }
+    	      myReader.close();
+    	    } catch (FileNotFoundException e) {
+    	      textArea.appendText("File Not Found.");
+    	      e.printStackTrace();
+    	    }
+    }
+    
+    @FXML
+    void exportDatabase() {
+    	
+    	textArea.appendText("Exporting File\n");
+    }
+    
+    private static Employee dataToEmployee(String data) {
+    	String employeeInfo[] = data.split(",");
+    	String name = employeeInfo[1];
+		String deptCode = employeeInfo[2];
+		Date hireDate = new Date(employeeInfo[3]);
+		Double rate = Double.parseDouble(employeeInfo[4]);
+		Employee temp = new Employee(name, deptCode, hireDate);
+    	if(employeeInfo[0].equals("P")) {
+    		temp = new Parttime(name, deptCode, hireDate, rate);
+    	}
+    	else if(employeeInfo[0].equals("F")) {
+    		temp = new Fulltime(name, deptCode, hireDate, rate);
+    	}
+    	else if(employeeInfo[0].equals("M")){
+    		int position = Integer.parseInt(employeeInfo[5]);
+    		temp = new Management(name, deptCode, hireDate, rate, position);
+    	}
+    	return temp;
+    }
 }
