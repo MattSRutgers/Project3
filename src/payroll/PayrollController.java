@@ -32,7 +32,8 @@ public class PayrollController {
 	private FileChooser fileChooser = new FileChooser();
 	
 	@FXML
-    private Button addEmp, remove, setHours, tempPrint, importFile, exportFile;
+    private Button addEmp, remove, setHours, tempPrint, importFile, exportFile, byDate, 
+    byDept;
 	
 	@FXML
 	private ToggleGroup department, empLevel, managerCode;
@@ -53,6 +54,7 @@ public class PayrollController {
     int mgt = 0;
     int dptHead = 1;
     int director = 2;
+    
     @FXML
     private boolean checkName() {
     	boolean valid = true;
@@ -84,7 +86,7 @@ public class PayrollController {
     private boolean checkSalary() {
     	boolean valid = false;
     	try {
-    		double temp = Double .parseDouble(salary.getText());
+    		double temp = Double.parseDouble(salary.getText());
     		if(temp != 0)
     			valid = true;
     		if(temp == 0)
@@ -213,7 +215,7 @@ public class PayrollController {
     
 
     void addManager(String name, String deptCode, String hireDate) {
-    	int code =0;
+    	int code = 0;
     	RadioButton mgmtSelected = (RadioButton) managerCode.getSelectedToggle();
     	String mgmtCode = mgmtSelected.getText();
     	if(mgmtCode.equals("Manager"))
@@ -258,9 +260,26 @@ public class PayrollController {
             textArea.appendText("Employee database is empty\n");
             return;
         }
-        company.print();
+    	textArea.appendText(company.print());
     }
     
+    @FXML
+    void printByDate() {
+    	if ( company.checkEmpty() ){
+            textArea.appendText("Employee database is empty\n");
+            return;
+        }
+    	textArea.appendText(company.printByDate());
+    }
+    
+    @FXML
+    void printByDept() {
+    	if ( company.checkEmpty() ){
+            textArea.appendText("Employee database is empty\n");
+            return;
+        }
+    	textArea.appendText(company.printByDepartment());
+    }
     
     void clearFields() {
     	empName.clear();
